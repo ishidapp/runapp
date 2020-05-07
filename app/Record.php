@@ -18,7 +18,7 @@ class Record extends Model
             ->select('r.user_id as user_id', 'u.name as name', DB::raw('sum(r.distances) as distances'))
             ->join('users as u', 'u.id', '=', 'r.user_id')
             ->whereBetween('r.date', [$from, $to])
-            ->groupBy('r.user_id')
+            ->groupBy('r.user_id', 'u.name')
             ->get()
             ->toArray();
         return $data;

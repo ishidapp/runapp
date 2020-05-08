@@ -37,9 +37,9 @@
                             </tr>
                         </table>
                     </form>
-                    <form action="{{ route('records.delete', ['record' => $record->id]) }}" method="POST">
+                    <form action="{{ route('records.delete', ['record' => $record->id]) }}" method="POST" style="text-align: right;">
                         @csrf
-                        <input type="submit" value="削除" />
+                        <input type="submit" value="削除" onclick="return confirm('削除します。よろしいですか？')" />
                     </form>
                 </div>
             </div>

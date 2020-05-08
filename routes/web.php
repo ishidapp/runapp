@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/', 'HomeController@index')->name('home');
-    Route::get('/users', 'UserController@index');
+    Route::get('/users', 'UserController@index')->name('users');
     Route::get('/records/create', 'RecordController@showCreateFrom')->name('records.create');
     Route::post('/records/create', 'RecordController@create');
     

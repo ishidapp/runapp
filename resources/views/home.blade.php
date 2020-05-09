@@ -7,7 +7,6 @@
             <div class="card">
                 <div class="card-header">{{ $year }}年{{ $month }}月</div>
                 <div class="card-body">
-                    <p><a href="{{ route('users') }}">ユーザー一覧</a></p>
                     <ul>
                         @foreach ( $monthly_data as $data )
                             <li>{{ $data->name }}：{{ $data->distances }}km</li>

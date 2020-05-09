@@ -7,8 +7,7 @@
             <div class="card">
                 <div class="card-header">{{ $year }}年{{ $month }}月</div>
                 <div class="card-body">
-                    <p>走行距離の登録は<a href="{{ route('records.create') }}">こちら</a></p>
-                    <p>登録ユーザーは<a href="{{ route('users') }}">こちら</a></p>
+                    <p><a href="{{ route('users') }}">ユーザー一覧</a></p>
                     <ul>
                         @foreach ( $monthly_data as $data )
                             <li>{{ $data->name }}：{{ $data->distances }}km</li>

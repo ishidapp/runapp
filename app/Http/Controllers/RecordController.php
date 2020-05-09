@@ -10,10 +10,12 @@ use Carbon\Carbon;
 
 class RecordController extends Controller
 {
-    public function showCreateFrom() {
-        $today = Carbon::today()->format('Y-m-d');
+    public function showCreateFrom(Request $request) {
+        //$today = Carbon::today()->format('Y-m-d');
+        $query_date = Carbon::createFromDate(Carbon::now()->year, Carbon::now()->month, $request->day)->format("Y-m-d");
         return view('records/create', [
-            'today' => $today,
+            'query_date' => $query_date,
+            //'today' => $today,
         ]);
     }
 

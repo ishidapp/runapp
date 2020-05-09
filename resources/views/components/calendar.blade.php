@@ -11,7 +11,7 @@
         <tr>
             @foreach ( $calendar_week as $calendar_day )
                 <td class="{{ $calendar_day['class']['box'] }}">
-                    <div><span class="{{ $calendar_day['class']['date'] }}">{{ $calendar_day['date'] }}</span></div>
+                    <div><a href="{{ route('records.create') }}?day={{ $calendar_day['date'] }}" class="{{ $calendar_day['class']['date'] }}">{{ $calendar_day['date'] }}</a></div>
                     <ul style="list-style-type:none; margin:0; padding:0;">
                         @foreach ( $calendar_day['records'] as $record )
                             @if ( $auth_id == $record['user_id'] )

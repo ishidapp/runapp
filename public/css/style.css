@@ -13,6 +13,20 @@
     padding: 0 0 40px 0;
     vertical-align: top;
 }
+.cal-box--em {
+    background-color: #fbffa3;
+    font-weight: bold;
+}
+.cal-box__date {
+    color: #000;
+    display: inline-block;
+    padding: 0 5px;
+    text-decoration: underline;
+}
+.cal-box__date--em {
+    background: #FF0000;
+    color: #fff;
+}
 .calendar__head--first,
 .cal-box__date--first {
     color: #FF0000;
@@ -20,18 +34,6 @@
 .calendar__head--last,
 .cal-box__date--last {
     color: #0000FF;
-}
-.cal-box--em {
-    background-color: #fbffa3;
-    font-weight: bold;
-}
-.cal-box__date {
-    display: inline-block;
-    padding: 0 5px;
-}
-.cal-box__date--em {
-    background: #FF0000;
-    color: #fff;
 }
 @media screen and (min-width: 767px) {
     .sp {

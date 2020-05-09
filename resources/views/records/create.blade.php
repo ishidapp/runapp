@@ -16,7 +16,7 @@
                             <tr>
                                 <th><label for="date">記録日：</label></th>
                                 <td>
-                                    <input type="text" id="date" name="date" value="{{ old('date', $today) }}" />
+                                    <input type="text" id="date" name="date" value="{{ old('date', $query_date) }}" />
                                     @if ( $errors->has('date') )
                                         <span style="color:red;">{{ $errors->first('date') }}</span>
                                     @endif

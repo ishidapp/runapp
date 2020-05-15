@@ -31,6 +31,11 @@
         min-height:100px;
         width: calc(100% / 7);
         
+        &--em {
+            background-color: #fbffa3;
+            font-weight: bold;
+        }
+
         &:nth-of-type(7n) {
             border-right: none;
         }

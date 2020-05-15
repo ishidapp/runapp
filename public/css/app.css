@@ -310,6 +310,11 @@ a {
   width: calc(100% / 7);
 }
 
+.p-calendar__box--em {
+  background-color: #fbffa3;
+  font-weight: bold;
+}
+
 .p-calendar__box:nth-of-type(7n) {
   border-right: none;
 }

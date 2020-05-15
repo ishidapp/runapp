@@ -10,7 +10,7 @@
     <title>Run App</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}?date=20200515" defer></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,7 +18,7 @@
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}?ver=1.1.0" rel="stylesheet">
 </head>
 <body>
     <div id="app">

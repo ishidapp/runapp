@@ -19,6 +19,7 @@ class Record extends Model
             ->join('users as u', 'u.id', '=', 'r.user_id')
             ->whereBetween('r.date', [$from, $to])
             ->groupBy('r.user_id', 'u.name')
+            ->orderBy('distances', 'desc')
             ->get()
             ->toArray();
         return $data;

@@ -1,0 +1,23 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+html {
+    font-size: 16px;
+    @media screen and (max-width: 480px) {
+        font-size: 10px;
+    }
+}
+body {
+    font-family: "Nunito", sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #212529;
+    text-align: left;
+}
+ul {
+    list-style: none;
+}
+a {
+    color: #212529;
+}

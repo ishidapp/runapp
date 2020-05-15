@@ -1,0 +1,13 @@
+.p-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background: linear-gradient(to top, #fff, #1e90ff);
+
+    &__logo {
+        font-size: 3rem;
+        text-decoration: none;
+        color: #fff;
+    }
+}

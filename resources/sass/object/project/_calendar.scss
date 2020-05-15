@@ -1,0 +1,64 @@
+.p-calendar {
+    border-collapse: collapse;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+    &__item {
+        border-top: 1px solid #CCC;
+        border-right: 1px solid #CCC;
+        border-bottom: 1px solid #CCC;
+        line-height: 1.2;
+        text-align: center;
+        width: calc(100% / 7);
+
+        &:nth-of-type(7n) {
+            border-right: none;
+        }
+
+        &--first {
+            color: #FF0000;
+        }
+    
+        &--last {
+            color: #0000FF;
+        }
+    }
+
+    &__box {
+        border-right: 1px solid #CCC;
+        border-bottom: 1px solid #CCC;
+        min-height:100px;
+        width: calc(100% / 7);
+        
+        &:nth-of-type(7n) {
+            border-right: none;
+        }
+        @media screen and (max-width: 480px) {
+            min-height:50px;
+        }
+    }
+    &__box-inner {
+        min-height: 50px;
+    }
+
+    &__head {
+        color: #000;
+
+        &--first {
+            color: #FF0000;
+        }
+        &--last {
+            color: #0000FF;
+        }
+    }
+    &__lists {
+        line-height: 1;
+    }
+    &__list {
+        margin-bottom: 5px;
+    }
+    &__target {
+        color: #1a0dab;
+    }
+}

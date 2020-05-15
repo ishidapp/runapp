@@ -1,29 +1,23 @@
-<table class="calendar">
-    <thead>
-        <tr>
-            @foreach ( $weeks as $week )
-                <th class="{{ $week['class'] }}">{{ $week['name'] }}</th>
-            @endforeach
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ( $calendar as $calendar_week )
-        <tr>
-            @foreach ( $calendar_week as $calendar_day )
-                <td class="{{ $calendar_day['class']['box'] }}">
-                    <div><a href="{{ route('records.create') }}?day={{ $calendar_day['date'] }}" class="{{ $calendar_day['class']['date'] }}">{{ $calendar_day['date'] }}</a></div>
-                    <ul style="list-style-type:none; margin:0; padding:0;">
-                        @foreach ( $calendar_day['records'] as $record )
+<div class="p-calendar">
+    @foreach ( $day_of_week as $day )
+        <div class="{{ $day['class'] }}">{{ $day['name'] }}</div>
+    @endforeach
+    @foreach ( $calendar as $week )
+        @foreach ( $week as $date )
+            <div class="{{ $date['class']['box'] }}">
+                <a href="{{ route('records.create') }}?day={{ $date['date'] }}" class="{{ $date['class']['date'] }}">{{ $date['date'] }}</a>
+                <ul class="p-calendar__lists">
+                    @foreach ( $date['records'] as $record )
+                        <li class="p-calendar__list">
                             @if ( $auth_id == $record['user_id'] )
-                                <li style="margin:0;"><a href="{{ route('records.edit', ['record' => $record['id']]) }}" style="display: inline-block; font-size: 9px; line-height: 1; margin-bottom: 10px; vertical-align: top;">{{ $record['user']['name'] }}：<br class="sp">{{ $record['distances'] }}km</a></li>
+                                <a class="p-calendar__target" href="{{ route('records.edit', ['record' => $record['id']]) }}">{{ mb_substr($record['user']['name'], 0, 1) }} {{ $record['distances'] }}km</a>
                             @else
-                                <li style="margin:0;"><span style="display: block; font-size: 9px; line-height: 1; margin-bottom: 10px;">{{ $record['user']['name'] }}：<br class="sp">{{ $record['distances'] }}km</span></li>
+                                {{ mb_substr($record['user']['name'], 0, 1) }} {{ $record['distances'] }}km
                             @endif
-                        @endforeach
-                    </ul>
-                </td>
-            @endforeach
-        </tr>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
         @endforeach
-    </tbody>
-</table>
+    @endforeach
+</div>

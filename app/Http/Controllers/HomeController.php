@@ -29,7 +29,7 @@ class HomeController extends Controller
             $calendar[$week][] = [
                 'date'    => '',
                 'class'   => [
-                    'box' => 'cal-box',
+                    'box' => 'p-calendar__box',
                     'date' => '',
                 ],
                 'records' => [],
@@ -43,14 +43,15 @@ class HomeController extends Controller
                 $week++;
             }
             $format_date = $date->format('Y-m-d');
-            $box_class = Carbon::now()->day == $i ? 'cal-box cal-box--em' : 'cal-box';
+            $box_class = Carbon::now()->day == $i ? 'p-calendar__box p-calendar__box--em' : 'p-calendar__box';
             if ( empty($calendar[$week]) ) {
-                $date_class = 'cal-box__date cal-box__date--first';
+                $date_class = 'p-calendar__head p-calendar__head--first';
             } elseif ( count($calendar[$week]) == (DAYS_OF_WEEK - 1) ) {
-                $date_class = 'cal-box__date cal-box__date--last';
+                $date_class = 'p-calendar__head p-calendar__head--last';
             } else {
-                $date_class = 'cal-box__date';
+                $date_class = 'p-calendar__head';
             }
+            //if ($i === 5) dd(Record::with('user')->where('date', $format_date)->get()->toArray());
             $calendar[$week][] = [
                 'date'    => $i,
                 'class'   => [
@@ -66,21 +67,21 @@ class HomeController extends Controller
             $calendar[$week][] = [
                 'date'    => '',
                 'class'   => [
-                    'box' => 'cal-box',
+                    'box' => 'p-calendar__box',
                     'date' => '',
                 ],
                 'records' => [],
             ];
         }
         
-        $weeks = [
-            ['name' => '日', 'class' => 'calendar__head calendar__head--first'],
-            ['name' => '月', 'class' => 'calendar__head'],
-            ['name' => '火', 'class' => 'calendar__head'],
-            ['name' => '水', 'class' => 'calendar__head'],
-            ['name' => '木', 'class' => 'calendar__head'],
-            ['name' => '金', 'class' => 'calendar__head'],
-            ['name' => '土', 'class' => 'calendar__head calendar__head--last'],
+        $day_of_week = [
+            ['name' => '日', 'class' => 'p-calendar__item p-calendar__item--first'],
+            ['name' => '月', 'class' => 'p-calendar__item'],
+            ['name' => '火', 'class' => 'p-calendar__item'],
+            ['name' => '水', 'class' => 'p-calendar__item'],
+            ['name' => '木', 'class' => 'p-calendar__item'],
+            ['name' => '金', 'class' => 'p-calendar__item'],
+            ['name' => '土', 'class' => 'p-calendar__item p-calendar__item--last'],
         ];
 
         $from = $start_date->format('Y-m-d');
@@ -90,7 +91,7 @@ class HomeController extends Controller
         return view('home', [
             'auth_id'      => Auth::user()->id,
             'monthly_data' => $monthly_data,
-            'weeks'        => $weeks,
+            'day_of_week'  => $day_of_week,
             'calendar'     => $calendar,
             'year'         => Carbon::now()->year,
             'month'        => Carbon::now()->month,

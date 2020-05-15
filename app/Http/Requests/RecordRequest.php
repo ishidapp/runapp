@@ -25,7 +25,7 @@ class RecordRequest extends FormRequest
     {
         return [
             'date'     => 'required|date_format:Y-m-d',
-            'distance' => 'required|numeric|between:0,99',
+            'distance' => 'required|numeric|between:0.1,99',
         ];
     }
     

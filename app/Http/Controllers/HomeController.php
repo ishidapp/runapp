@@ -58,7 +58,7 @@ class HomeController extends Controller
                     'box'  => $box_class,
                     'date' => $date_class,
                 ],
-                'records' => Record::with('user')->where('date', $format_date)->get()->toArray(),
+                'records' => Record::with('user')->where('date', $format_date)->orderBy('distances', 'desc')->get()->toArray(),
             ];
         }
 

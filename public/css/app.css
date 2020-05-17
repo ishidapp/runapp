@@ -240,11 +240,16 @@ a {
 /* Project ------------ */
 
 .p-header {
+  background: linear-gradient(to top, #fff, #1e90ff);
+}
+
+.p-header__inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
-  background: linear-gradient(to top, #fff, #1e90ff);
+  max-width: 1120px;
+  margin: auto;
+  padding: 0 10px;
 }
 
 .p-header__logo {
@@ -268,7 +273,9 @@ a {
 }
 
 .p-section__inner {
-  padding: 0 10px 10px;
+  max-width: 1120px;
+  margin: auto;
+  padding: 0 10px;
 }
 
 .p-section__lists {
@@ -276,10 +283,21 @@ a {
 }
 
 .p-calendar {
+  width: 100%;
+}
+
+.p-calendar__inner {
   border-collapse: collapse;
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .p-calendar__inner {
+    max-width: 1120px;
+    margin: auto;
+    padding: 0 10px;
+  }
 }
 
 .p-calendar__item {
@@ -291,16 +309,24 @@ a {
   width: calc(100% / 7);
 }
 
-.p-calendar__item:nth-of-type(7n) {
-  border-right: none;
-}
-
 .p-calendar__item--first {
   color: #FF0000;
 }
 
 .p-calendar__item--last {
   color: #0000FF;
+}
+
+@media screen and (min-width: 768px) {
+  .p-calendar__item--first {
+    border-left: 1px solid #CCC;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .p-calendar__item:nth-of-type(7n) {
+    border-right: none;
+  }
 }
 
 .p-calendar__box {
@@ -312,16 +338,21 @@ a {
 
 .p-calendar__box--em {
   background-color: #fbffa3;
-  font-weight: bold;
 }
 
-.p-calendar__box:nth-of-type(7n) {
-  border-right: none;
+@media screen and (min-width: 768px) {
+  .p-calendar__box:nth-of-type(7n-6) {
+    border-left: 1px solid #CCC;
+  }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 767px) {
   .p-calendar__box {
     min-height: 50px;
+  }
+
+  .p-calendar__box:nth-of-type(7n) {
+    border-right: none;
   }
 }
 

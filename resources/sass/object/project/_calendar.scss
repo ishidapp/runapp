@@ -1,9 +1,17 @@
 .p-calendar {
-    border-collapse: collapse;
-    display: flex;
-    flex-wrap: wrap;
     width: 100%;
 
+    &__inner {
+        border-collapse: collapse;
+        display: flex;
+        flex-wrap: wrap;
+
+        @media screen and (min-width: 768px) {
+            max-width: 1120px;
+            margin: auto;
+            padding: 0 10px;
+        }
+    }
     &__item {
         border-top: 1px solid #CCC;
         border-right: 1px solid #CCC;
@@ -12,16 +20,22 @@
         text-align: center;
         width: calc(100% / 7);
 
-        &:nth-of-type(7n) {
-            border-right: none;
-        }
-
         &--first {
             color: #FF0000;
         }
     
         &--last {
             color: #0000FF;
+        }
+        @media screen and (min-width: 768px) {
+            &--first {
+                border-left: 1px solid #CCC;
+            }
+        }
+        @media screen and (max-width: 767px) {
+            &:nth-of-type(7n) {
+                border-right: none;
+            }
         }
     }
 
@@ -33,14 +47,19 @@
         
         &--em {
             background-color: #fbffa3;
-            font-weight: bold;
         }
 
-        &:nth-of-type(7n) {
-            border-right: none;
+        @media screen and (min-width: 768px) {
+            &:nth-of-type(7n-6) {
+                border-left: 1px solid #CCC;
+            }
         }
-        @media screen and (max-width: 480px) {
+        @media screen and (max-width: 767px) {
             min-height:50px;
+
+            &:nth-of-type(7n) {
+                border-right: none;
+            }
         }
     }
     &__box-inner {

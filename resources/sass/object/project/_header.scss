@@ -1,10 +1,14 @@
 .p-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
     background: linear-gradient(to top, #fff, #1e90ff);
 
+    &__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1120px;
+        margin: auto;
+        padding: 0 10px;
+    }
     &__logo {
         font-size: 3rem;
         text-decoration: none;

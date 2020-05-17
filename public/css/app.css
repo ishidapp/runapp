@@ -249,7 +249,7 @@ a {
   justify-content: space-between;
   max-width: 1120px;
   margin: auto;
-  padding: 0 10px;
+  padding: 10px;
 }
 
 .p-header__logo {
@@ -275,7 +275,7 @@ a {
 .p-section__inner {
   max-width: 1120px;
   margin: auto;
-  padding: 0 10px;
+  padding: 10px;
 }
 
 .p-section__lists {
@@ -296,7 +296,7 @@ a {
   .p-calendar__inner {
     max-width: 1120px;
     margin: auto;
-    padding: 0 10px;
+    padding: 10px;
   }
 }
 

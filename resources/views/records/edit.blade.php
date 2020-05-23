@@ -23,11 +23,11 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th><label for="distance">走行距離：</label></th>
+                                <th><label for="distances">走行距離：</label></th>
                                 <td>
-                                    <input type="text" id="distance" name="distance" value="{{ old('distance', $record->distances) }}" />km
-                                    @if ( $errors->has('distance') )
-                                        <span style="color:red;">{{ $errors->first('distance') }}</span>
+                                    <input type="text" id="distances" name="distances" value="{{ old('distances', $record->distances) }}" />km
+                                    @if ( $errors->has('distances') )
+                                        <span style="color:red;">{{ $errors->first('distances') }}</span>
                                     @endif
                                 </td>
                             </tr>

@@ -4,13 +4,21 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use App\User;
 
 class Record extends Model
 {
-    protected $table = 'Records';
+    protected $table = 'records';
 
-    public function user() {
-        return $this->belongsTo('App\User');
+    protected $fillable = [
+        'user_id'  ,
+        'date'     ,
+        'distances',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
     public static function getMonthlyData($from, $to)
     {

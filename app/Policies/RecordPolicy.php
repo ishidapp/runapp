@@ -20,7 +20,8 @@ class RecordPolicy
         //
     }
 
-    public function view(User $user, Record $record) {
+    public function view(User $user, Record $record)
+    {
         return $user->id === $record->user_id;
     }
 }

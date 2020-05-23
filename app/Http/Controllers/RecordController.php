@@ -6,42 +6,46 @@ use Illuminate\Http\Request;
 use App\Http\Requests\RecordRequest;
 use App\Record;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
+use Carbon\CarbonImmutable as Carbon;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class RecordController extends Controller
 {
-    public function showCreateFrom(Request $request) {
-        //$today = Carbon::today()->format('Y-m-d');
-        $query_date = Carbon::createFromDate(Carbon::now()->year, Carbon::now()->month, $request->day)->format("Y-m-d");
+    public function showCreateFrom(Request $request): View
+    {
+        $query_date = Carbon::today()->setDay($request->day)->format("Y-m-d");
         return view('records/create', [
             'query_date' => $query_date,
-            //'today' => $today,
         ]);
     }
 
-    public function create(RecordRequest $request) {
+    public function create(RecordRequest $request): RedirectResponse
+    {
         $record = new Record();
-        $record->user_id = Auth::user()->id;
-        $record->date = $request->date;
-        $record->distances = $request->distance;
-        $record->save();
+        $record
+            ->fill(['user_id' => Auth::user()->id] + $request->validated())
+            ->save();
         return redirect()->route('home');
     }
 
-    public function showEditFrom(Record $record) {
+    public function showEditFrom(Record $record): View
+    {
         return view('records/edit', [
             'record' => $record
         ]);
     }
 
-    public function edit(Record $record, RecordRequest $request) {
-        $record->date = $request->date;
-        $record->distances = $request->distance;
-        $record->save();
+    public function edit(Record $record, RecordRequest $request): RedirectResponse
+    {
+        $record
+            ->fill($request->validated())
+            ->save();
         return redirect()->route('home');
     }
 
-    public function delete(Record $record) {
+    public function delete(Record $record): RedirectResponse
+    {
         $record->delete();
         return redirect()->route('home');
     }

@@ -25,7 +25,7 @@ class RecordRequest extends FormRequest
     {
         return [
             'date'     => 'required|date_format:Y-m-d',
-            'distance' => 'required|numeric|between:0.1,99',
+            'distances' => 'required|numeric|between:0.1,99',
         ];
     }
     
@@ -33,7 +33,7 @@ class RecordRequest extends FormRequest
     {
         return [
             'date'     => '記録日',
-            'distance' => '走行距離',
+            'distances' => '走行距離',
         ];
     }
 }

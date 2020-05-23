@@ -16,11 +16,11 @@ class RecordsTableSeeder extends Seeder
         $user = DB::table('users')->first();
         $distances = [10, 20, 12];
 
-        foreach ( $distances as $distance ) {
+        foreach ( $distances as $value ) {
             DB::table('records')->insert([
                 'user_id'    => $user->id,
                 'date'       => Carbon::now(),
-                'distances'  => $distance,
+                'distances'  => $value,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);

@@ -7,10 +7,11 @@ use App\Record;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\View\View;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         define("DAYS_OF_WEEK", 7);
 
@@ -25,7 +26,7 @@ class HomeController extends Controller
         $week = 0;
 
         //1日開始曜日までの値を空にする
-        for ( $i = 0; $i < $start_date->dayOfWeek; $i++ ) {
+        for ($i = 0; $i < $start_date->dayOfWeek; $i++) {
             $calendar[$week][] = [
                 'date'    => '',
                 'class'   => [
@@ -37,16 +38,16 @@ class HomeController extends Controller
         }
 
         //1日から月末日までループ
-        for ( $i = 1, $date = $start_date->copy(); $i <= $days; $i++, $date->addDay() ) {
+        for ($i = 1, $date = $start_date->copy(); $i <= $days; $i++, $date->addDay()) {
             //日曜日まで進んだら改行
-            if ( count($calendar[$week]) === DAYS_OF_WEEK ) {
+            if (count($calendar[$week]) === DAYS_OF_WEEK) {
                 $week++;
             }
             $format_date = $date->format('Y-m-d');
             $box_class = Carbon::now()->day == $i ? 'p-calendar__box p-calendar__box--em' : 'p-calendar__box';
-            if ( empty($calendar[$week]) ) {
+            if (empty($calendar[$week])) {
                 $date_class = 'p-calendar__head p-calendar__head--first';
-            } elseif ( count($calendar[$week]) == (DAYS_OF_WEEK - 1) ) {
+            } elseif (count($calendar[$week]) == (DAYS_OF_WEEK - 1)) {
                 $date_class = 'p-calendar__head p-calendar__head--last';
             } else {
                 $date_class = 'p-calendar__head';
@@ -63,7 +64,7 @@ class HomeController extends Controller
         }
 
         //月末日以降の値を空にする
-        for ( $i = count($calendar[$week]); $i < DAYS_OF_WEEK; $i++ ) {
+        for ($i = count($calendar[$week]); $i < DAYS_OF_WEEK; $i++) {
             $calendar[$week][] = [
                 'date'    => '',
                 'class'   => [

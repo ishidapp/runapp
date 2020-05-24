@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Record;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
+use Carbon\CarbonImmutable as Carbon;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -14,61 +14,65 @@ class HomeController extends Controller
     public function index(): View
     {
         define("DAYS_OF_WEEK", 7);
-
-        //当月の日数を取得
-        $days = Carbon::now()->daysInMonth;
-        //当月の1日を取得
-        $start_date = Carbon::now()->startOfMonth();
-        //当月の月末日を取得
-        $end_date = Carbon::now()->endOfMonth();
-
+        $today = Carbon::now();
         $calendar = [];
         $week = 0;
 
-        //1日開始曜日までの値を空にする
-        for ($i = 0; $i < $start_date->dayOfWeek; $i++) {
+        // 1日までの空データを作成する
+        $start_of_month = $today->startOfMonth()->dayOfWeek;
+        for ($i = 0; $i < $start_of_month; $i++) {
             $calendar[$week][] = [
                 'date'    => '',
                 'class'   => [
-                    'box' => 'p-calendar__box',
+                    'box'  => 'p-calendar__box',
                     'date' => '',
                 ],
                 'records' => [],
             ];
         }
 
-        //1日から月末日までループ
-        for ($i = 1, $date = $start_date->copy(); $i <= $days; $i++, $date->addDay()) {
-            //日曜日まで進んだら改行
+        // データを作成する
+        $daily_data = Record::fetchDailyDistancesEachUser(
+            $today->startOfMonth()->format('Y-m-d'),
+            $today->endOfMonth()->format('Y-m-d'),
+        );
+        $class = [];
+        for ($i = 1, $date = $today->startOfMonth(); $i <= $today->daysInMonth; $i++, $date = $date->addDay()) {
             if (count($calendar[$week]) === DAYS_OF_WEEK) {
                 $week++;
             }
-            $format_date = $date->format('Y-m-d');
-            $box_class = Carbon::now()->day == $i ? 'p-calendar__box p-calendar__box--em' : 'p-calendar__box';
-            if (empty($calendar[$week])) {
-                $date_class = 'p-calendar__head p-calendar__head--first';
-            } elseif (count($calendar[$week]) == (DAYS_OF_WEEK - 1)) {
-                $date_class = 'p-calendar__head p-calendar__head--last';
-            } else {
-                $date_class = 'p-calendar__head';
+
+            $class['box'] = 'p-calendar__box';
+            if ($i == $today->day) {
+                $class['box'] .= ' p-calendar__box--em';
             }
-            //if ($i === 5) dd(Record::with('user')->where('date', $format_date)->get()->toArray());
+
+            $class['date'] = 'p-calendar__head';
+            if (empty($calendar[$week])) {
+                $class['date'] .= ' p-calendar__head--first';
+            } elseif (count($calendar[$week]) == (DAYS_OF_WEEK - 1)) {
+                $class['date'] .= ' p-calendar__head--last';
+            }
+
+            $records = [];
+            foreach ($daily_data as $data) {
+                if ($date->format('Y-m-d') == $data['date'] ) {
+                    $records[] = $data;
+                }
+            }
             $calendar[$week][] = [
                 'date'    => $i,
-                'class'   => [
-                    'box'  => $box_class,
-                    'date' => $date_class,
-                ],
-                'records' => Record::with('user')->where('date', $format_date)->orderBy('distances', 'desc')->get()->toArray(),
+                'class'   => $class,
+                'records' => $records,
             ];
         }
 
-        //月末日以降の値を空にする
+        // 月末日以降の空データを作成する
         for ($i = count($calendar[$week]); $i < DAYS_OF_WEEK; $i++) {
             $calendar[$week][] = [
                 'date'    => '',
                 'class'   => [
-                    'box' => 'p-calendar__box',
+                    'box'  => 'p-calendar__box',
                     'date' => '',
                 ],
                 'records' => [],
@@ -85,18 +89,19 @@ class HomeController extends Controller
             ['name' => '土', 'class' => 'p-calendar__item p-calendar__item--last'],
         ];
 
-        $from = $start_date->format('Y-m-d');
-        $to = $end_date->format('Y-m-d');
-        $monthly_data = Record::getMonthlyData($from, $to);
+        $monthly_data = Record::fetchDistancesEachUser(
+            $today->startOfMonth()->format('Y-m-d'),
+            $today->endOfMonth()->format('Y-m-d'),
+        );
 
         return view('home', [
             'auth_id'      => Auth::user()->id,
-            'monthly_data' => $monthly_data,
-            'day_of_week'  => $day_of_week,
             'calendar'     => $calendar,
-            'year'         => Carbon::now()->year,
-            'month'        => Carbon::now()->month,
-            'today'        => Carbon::now()->day,
+            'day_of_week'  => $day_of_week,
+            'monthly_data' => $monthly_data,
+            'year'         => $today->year,
+            'month'        => $today->month,
+            'today'        => $today->day,
         ]);
     }
 }

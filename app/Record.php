@@ -20,16 +20,28 @@ class Record extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public static function getMonthlyData($from, $to)
+
+    public static function fetchDistancesEachUser($from, $to)
     {
         $data = DB::table('records as r')
-            ->select('r.user_id as user_id', 'u.name as name', DB::raw('sum(r.distances) as distances'))
-            ->join('users as u', 'u.id', '=', 'r.user_id')
-            ->whereBetween('r.date', [$from, $to])
-            ->groupBy('r.user_id', 'u.name')
-            ->orderBy('distances', 'desc')
-            ->get()
-            ->toArray();
+                    ->select('r.user_id as user_id', 'u.name as name', DB::raw('sum(r.distances) as distances'))
+                    ->join('users as u', 'u.id', '=', 'r.user_id')
+                    ->whereBetween('r.date', [$from, $to])
+                    ->groupBy('r.user_id', 'u.name')
+                    ->orderBy('distances', 'desc')
+                    ->get()
+                    ->toArray();
+        return $data;
+    }
+
+    public static function fetchDailyDistancesEachUser($from, $to)
+    {
+        $data = Record::with('user')
+                    ->whereBetween('date', [$from, $to])
+                    ->orderBy('date', 'asc',)
+                    ->orderBy('distances', 'desc')
+                    ->get()
+                    ->toArray();
         return $data;
     }
 }
